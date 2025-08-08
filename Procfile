@@ -1,1 +1,1 @@
-web: uvicorn llm-chatbot.backend.main:app --host=0.0.0.0 --port=10000
+web: uvicorn llm-chatbot.backend.main:app --host=0.0.0.0 --port=$PORT --reload
