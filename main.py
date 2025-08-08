@@ -15,7 +15,7 @@ app = FastAPI()
 # Allow requests from frontend (Vite default port 5173)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],  # all frontend ports
+    allow_origins=["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "*"],  # all frontend ports
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,3 +47,8 @@ async def query(request: QueryRequest):
         if "429" in error_msg or "quota" in error_msg.lower():
             return {"error": "Rate limit exceeded. Please wait a moment and try again, or enable billing in Google AI Studio for higher limits."}
         return {"error": error_msg}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
