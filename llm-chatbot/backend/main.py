@@ -47,3 +47,11 @@ async def query(request: QueryRequest):
         if "429" in error_msg or "quota" in error_msg.lower():
             return {"error": "Rate limit exceeded. Please wait a moment and try again, or enable billing in Google AI Studio for higher limits."}
         return {"error": error_msg}
+from fastapi import FastAPI, Request
+
+app = FastAPI()
+
+@app.post("/api/v1/hackrx/run")
+async def run_webhook(request: Request):
+    data = await request.json()
+    return {"message": "Success", "data_received": data}
